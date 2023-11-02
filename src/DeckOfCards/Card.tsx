@@ -3,8 +3,6 @@ import "./Card.css";
 import Icards from "../Icards";
 
 function Card({ card }: { card: Icards }) {
-  // console.log(card.pattern);
-
   return (
     <div className="Card">
       <p>{card.value}</p>

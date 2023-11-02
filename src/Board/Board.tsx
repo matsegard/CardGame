@@ -11,6 +11,7 @@ export function Board() {
   const [players, setPlayers] = useState<Iplayer[]>([]);
 
   useEffect(() => {
+    // CARDS
     const pattern = ["spades", "hearts", "clubs", "diamonds"];
     const value = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
@@ -19,14 +20,23 @@ export function Board() {
 
     pattern.forEach((pattern) => {
       value.forEach((value) => {
-        newDeck.push({ pattern, value });
+        newDeck.push({ id, pattern, value });
         newDeck.forEach((card) => {
-          id = id++;
+          id++;
         });
       });
     });
 
-    setDeckOfCards(newDeck);
+    const shuffledDeck = [...newDeck];
+
+    for (let i = 0; i < shuffledDeck.length; i++) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
+    }
+
+    setDeckOfCards(shuffledDeck);
+
+    // PLAYER
 
     const name = ["me", "you"];
     const newPlayer: Iplayer[] = [];
@@ -40,9 +50,16 @@ export function Board() {
   return (
     <div className="Board">
       {deckOfCards.length > 0 && <DeckOfCards deckOfCards={deckOfCards} />}
-      {players.map((player, i) => (
-        <Player key={i} player={player} />
-      ))}
+      <div className="playerpocket">
+        {players.map((player, i) => (
+          <Player
+            key={i}
+            player={player}
+            deckOfCards={deckOfCards}
+            setDeckOfCards={setDeckOfCards}
+          />
+        ))}
+      </div>
     </div>
   );
 }
