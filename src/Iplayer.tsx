@@ -1,7 +1,9 @@
+import Icards from "./Icards";
+
 export default interface Iplayer {
   id?: number;
   name: string;
-  cardHand?: [];
+  cardHand?: Icards[];
   //   cardFaceUp: [3];
   //   cardFaceDwon: [3];
 }

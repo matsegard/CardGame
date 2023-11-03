@@ -57,6 +57,7 @@ export function Board() {
             player={player}
             deckOfCards={deckOfCards}
             setDeckOfCards={setDeckOfCards}
+            setPlayers={setPlayers}
           />
         ))}
       </div>
