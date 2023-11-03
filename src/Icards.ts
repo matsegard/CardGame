@@ -1,8 +1,8 @@
 export default interface Icards {
-  id?: number;
+  cardId: number;
   title?: string;
-  value: number;
+  cardValue: number;
   action?: boolean;
-  pattern: string;
+  cardPattern: string;
   faceUpDown?: boolean;
 }

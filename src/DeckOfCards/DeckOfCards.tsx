@@ -6,9 +6,9 @@ import Icards from "../Icards";
 function DeckOfCards({ deckOfCards }: { deckOfCards: Icards[] }) {
   return (
     <div className="DeckOfCards">
-      {deckOfCards.map((card, i) => (
+      {/* {deckOfCards.map((card, i) => (
         <Card key={i} card={card} />
-      ))}
+      ))} */}
     </div>
   );
 }

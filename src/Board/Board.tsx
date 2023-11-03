@@ -12,17 +12,17 @@ export function Board() {
 
   useEffect(() => {
     // CARDS
-    const pattern = ["spades", "hearts", "clubs", "diamonds"];
-    const value = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    const cardPattern = ["spades", "hearts", "clubs", "diamonds"];
+    const cardValue = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
     const newDeck: Icards[] = [];
-    let id = 0;
+    let cardId = 0;
 
-    pattern.forEach((pattern) => {
-      value.forEach((value) => {
-        newDeck.push({ id, pattern, value });
+    cardPattern.forEach((cardPattern) => {
+      cardValue.forEach((cardValue) => {
+        newDeck.push({ cardId, cardPattern, cardValue });
         newDeck.forEach((card) => {
-          id++;
+          cardId++;
         });
       });
     });
@@ -37,12 +37,15 @@ export function Board() {
     setDeckOfCards(shuffledDeck);
 
     // PLAYER
-
-    const name = ["me", "you"];
+   
+    const playerId = ["PlayerOne", "PlayerTwo"]
     const newPlayer: Iplayer[] = [];
+    let cardHand: Icards[] = [];
 
-    name.forEach((name) => {
-      newPlayer.push({ name });
+    playerId.forEach((playerId) => {
+      cardHand = cardHand;
+      playerId = playerId;
+      newPlayer.push({playerId, cardHand});
     });
     setPlayers(newPlayer);
   }, []);
@@ -51,14 +54,15 @@ export function Board() {
     <div className="Board">
       {deckOfCards.length > 0 && <DeckOfCards deckOfCards={deckOfCards} />}
       <div className="playerpocket">
-        {players.map((player, i) => (
+        {players.map((player, playerId) => (
           <Player
-            key={i}
+            key={playerId}
             player={player}
             deckOfCards={deckOfCards}
             setDeckOfCards={setDeckOfCards}
             setPlayers={setPlayers}
-          />
+            currentPlayerId={player.playerId}
+          /> 
         ))}
       </div>
     </div>

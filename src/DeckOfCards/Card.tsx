@@ -5,8 +5,8 @@ import Icards from "../Icards";
 function Card({ card }: { card: Icards }) {
   return (
     <div className="Card">
-      <p>{card.value}</p>
-      <p>{card.pattern}</p>
+      <p>{card.cardValue}</p>
+      <p>{card.cardPattern}</p>
     </div>
   );
 }
