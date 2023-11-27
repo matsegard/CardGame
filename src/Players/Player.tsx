@@ -42,7 +42,7 @@ function Player({
   }
 
   // console.log(player);
-  // console.log(deckOfCards);
+  console.log(deckOfCards);
 
   // function switchPlayer() {
 

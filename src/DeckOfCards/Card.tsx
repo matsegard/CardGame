@@ -12,17 +12,52 @@ interface CardProps {
 }
 
 function Card({ cardValue, cardPattern }: CardProps) {
+  let patternImage: string | null | undefined;
+
+  switch (cardPattern) {
+    case "spades":
+      patternImage = spades;
+      break;
+    case "diamonds":
+      patternImage = diamonds;
+      break;
+    case "hearts":
+      patternImage = hearts;
+      break;
+    case "clubs":
+      patternImage = clubs;
+      break;
+    default:
+      patternImage = null;
+  }
+
+  const renderImages = () => {
+    const images = [];
+    for (let i = 0; i < cardValue; i++) {
+      images.push(
+        <img
+          key={i}
+          className="pattern"
+          alt="suit"
+          src={patternImage || undefined}
+        />
+      );
+    }
+    return images;
+  };
+
   return (
     <div className="Card">
       <p>{cardValue}</p>
-      {cardPattern === "spades" && <img className="pattern" src={spades}></img>}
-
-      {cardPattern === "diamonds" && (
-        <img className="pattern" src={diamonds}></img>
+      {patternImage && (
+        <img className="pattern" src={patternImage} alt={cardPattern} />
       )}
 
-      {cardPattern === "hearts" && <img className="pattern" src={hearts}></img>}
-      {cardPattern === "clubs" && <img className="pattern" src={clubs}></img>}
+      {cardValue > 2 && cardValue < 11 && renderImages()}
+      {cardValue === 11 && renderImages() && <p>Jack</p>}
+      {cardValue === 12 && renderImages() && <p>Queen</p>}
+      {cardValue === 13 && renderImages() && <p>King</p>}
+      {cardValue === 14 && renderImages() && <p>A</p>}
     </div>
   );
 }
