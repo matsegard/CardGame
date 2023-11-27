@@ -4,7 +4,7 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: black;
+  background-color: white;
 }
 
 .playerpocket {
@@ -13,4 +13,8 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
+}
+
+.startButton {
+  color: blue;
 }

@@ -1,12 +1,28 @@
 import { useEffect, useState } from "react";
 import "./Card.css";
-import Icards from "../Icards";
+import Icards from "../Icard";
+import spades from "../Images/spades.svg";
+import hearts from "../Images/hearts.svg";
+import diamonds from "../Images/diamonds.svg";
+import clubs from "../Images/clubs.svg";
 
-function Card({ card }: { card: Icards }) {
+interface CardProps {
+  cardPattern: string;
+  cardValue: number;
+}
+
+function Card({ cardValue, cardPattern }: CardProps) {
   return (
     <div className="Card">
-      <p>{card.cardValue}</p>
-      <p>{card.cardPattern}</p>
+      <p>{cardValue}</p>
+      {cardPattern === "spades" && <img className="pattern" src={spades}></img>}
+
+      {cardPattern === "diamonds" && (
+        <img className="pattern" src={diamonds}></img>
+      )}
+
+      {cardPattern === "hearts" && <img className="pattern" src={hearts}></img>}
+      {cardPattern === "clubs" && <img className="pattern" src={clubs}></img>}
     </div>
   );
 }

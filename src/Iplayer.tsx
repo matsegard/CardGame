@@ -1,16 +1,16 @@
-import Icards from "./Icards";
+import Icard from "./Icard";
 
 export default interface Iplayer {
   // id: number;
   // name: string;
   playerId: string;
   currentPlayerID?: string;
-  cardHand?: Icards[];
+  cardHand?: Icard[];
   //   cardFaceUp: [3];
   //   cardFaceDwon: [3];
 }
 
 export default interface cardHand {
-cardHand?: Icards[];
-handId?: number;
+  cardHand?: Icard[];
+  handId?: number;
 }

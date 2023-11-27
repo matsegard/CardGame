@@ -1,71 +1,48 @@
 import { useEffect, useState } from "react";
-import Icards from "../Icards";
+import Icards from "../Icard";
 import Iplayer from "../Iplayer";
 import "./Player.css";
-import { Console } from "console";
+import { Console, log } from "console";
+import Icard from "../Icard";
+import Card from "../DeckOfCards/Card";
 
 interface PlayerProps {
   player: Iplayer;
   deckOfCards: Icards[];
+  setNewPlayerHand: React.Dispatch<React.SetStateAction<Icards[]>>;
   setDeckOfCards: React.Dispatch<React.SetStateAction<Icards[]>>;
   setPlayers: React.Dispatch<React.SetStateAction<Iplayer[]>>;
-  currentPlayerId: string
+  newPlayerHand: Icards[];
+  players: Iplayer[];
 }
 
 function Player({
   setPlayers,
+  players,
+  newPlayerHand,
   player,
-  currentPlayerId,
   deckOfCards,
   setDeckOfCards,
+  setNewPlayerHand,
 }: PlayerProps) {
-  const [newPlayerHand, setNewPlayerHand] = useState<Icards[]>([]);
-  let playersTurn: number = 0;
-  let orginalDeck = [...deckOfCards];
-  let i = 0;
-
-  useEffect(() => {
-    let updatedDeck = [...orginalDeck];
-    const takenCards = orginalDeck.slice(-3);
-
-    takenCards.forEach((playerCard) => {
-      let cardValue = playerCard.cardValue;
-      let cardPattern = playerCard.cardPattern;
-      let cardId = playerCard.cardId;
-      newPlayerHand.push({ cardId, cardPattern, cardValue });
-    });
-    updatedDeck = orginalDeck.filter((card) => !takenCards.includes(card));
-    orginalDeck = orginalDeck.slice(0, -3)
-    setDeckOfCards(orginalDeck);
-    player.cardHand = [...takenCards];
-    setNewPlayerHand(takenCards);
-    console.log(orginalDeck)
-  
-    console.log(currentPlayerId)
-    console.log(takenCards);
-  }, []);
+  // const oneCard = deckOfCards.slice(-1);
+  // const updatedDeck = deckOfCards.slice(0, -3);
 
   function takeCard() {
-    console.log(newPlayerHand)
-    let cardsToTake = 3 - newPlayerHand.length;
-    if (newPlayerHand.length < 3) {
-      const takenCards = deckOfCards.slice(-cardsToTake);
-      const updatedDeck = deckOfCards.slice(0, -cardsToTake);
-
-      takenCards.forEach((playerCard) => {
-        let cardValue = playerCard.cardValue;
-        let cardPattern = playerCard.cardPattern;
-        let cardId = playerCard.cardId;
-        newPlayerHand.push({ cardId, cardPattern, cardValue });
-      });
-
-      setDeckOfCards(updatedDeck)
-
-
+    if (player.playerId === "PlayerOne" && (player.cardHand?.length ?? 0) < 4) {
+      const updatedDeck = [...deckOfCards];
+      const drawnCard = updatedDeck.pop();
+      if (drawnCard) {
+        const updatedPlayer = {
+          ...player,
+          cardHand: [...(player.cardHand ?? []), drawnCard],
+        };
+      }
     }
-    else
-      console.log("hand is full")
   }
+
+  // console.log(player);
+  // console.log(deckOfCards);
 
   // function switchPlayer() {
 
@@ -76,33 +53,20 @@ function Player({
   //   // skapa en swithch för flera spelare
   // }
 
-
   return (
     <div>
       <div className="player">
-        <button onClick={takeCard}>Take cards</button>
-        <div key={currentPlayerId}>
-          <p>Player ID: {player.playerId}</p>
-          <div className="Card">
-            {player.playerId === currentPlayerId && (
-              <>
-                {player.cardHand?.map((card, cardId) => (
+        <button onClick={takeCard}>Take Card</button>
+        <p>Player ID: {player.playerId}</p>
 
-                  <div key={cardId} className="Card">
-                    <p>{card.cardPattern}</p>
-                    <p>{card.cardValue}</p>
-
-                  </div>
-                ))}
-              </>
-            )}
-          </div>
-
+        <div className="playerhand">
+          {player.cardHand?.map((card, cardId) => (
+            <Card cardPattern={card.cardPattern} cardValue={card.cardValue} />
+          ))}
         </div>
-
       </div>
       {/* <button onClick={switchPlayer}>Next player</button> */}
-      <p>Current Player Turn: {playersTurn}</p>
+      {/* <p>Current Player Turn: {playersTurn}</p> */}
     </div>
   );
 }

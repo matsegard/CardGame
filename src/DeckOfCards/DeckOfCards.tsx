@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./DeckOfCards.css";
 import Card from "./Card";
-import Icards from "../Icards";
+import Icards from "../Icard";
 
 function DeckOfCards({ deckOfCards }: { deckOfCards: Icards[] }) {
   return (

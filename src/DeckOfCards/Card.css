@@ -1,7 +1,14 @@
 .Card {
-  width: 10em;
-  height: 10em;
+  width: 9em;
+  height: 12em;
   background-color: aqua;
   color: red;
   font-size: large;
+  margin: 1em;
+  border-radius: 5px;
+}
+
+.pattern {
+  width: 2em;
+  align-self: center;
 }

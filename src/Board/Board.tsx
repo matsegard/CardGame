@@ -2,16 +2,23 @@ import { SetStateAction, useEffect, useState } from "react";
 import "./Board.css";
 import { title } from "process";
 import DeckOfCards from "../DeckOfCards/DeckOfCards";
-import Icards from "../Icards";
+import Icards from "../Icard";
 import Player from "../Players/Player";
 import Iplayer from "../Iplayer";
 
 export function Board() {
   const [deckOfCards, setDeckOfCards] = useState<Icards[]>([]);
   const [players, setPlayers] = useState<Iplayer[]>([]);
+  const [newPlayerHand, setNewPlayerHand] = useState<Icards[]>([]);
 
-  useEffect(() => {
-    // CARDS
+  // const takenCards = deckOfCards.slice(-3);
+  // const updatedDeck = deckOfCards.slice(0, -3);
+
+  const playerId = ["PlayerOne", "PlayerTwo"];
+
+  // CARDS
+
+  function startGame() {
     const cardPattern = ["spades", "hearts", "clubs", "diamonds"];
     const cardValue = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
@@ -37,21 +44,30 @@ export function Board() {
     setDeckOfCards(shuffledDeck);
 
     // PLAYER
-   
-    const playerId = ["PlayerOne", "PlayerTwo"]
-    const newPlayer: Iplayer[] = [];
+
     let cardHand: Icards[] = [];
+    const newPlayer: Iplayer[] = [];
 
     playerId.forEach((playerId) => {
-      cardHand = cardHand;
-      playerId = playerId;
-      newPlayer.push({playerId, cardHand});
+      newPlayer.push({ playerId, cardHand });
     });
+
     setPlayers(newPlayer);
-  }, []);
+  }
+
+  const updatedPlayers = players.map((player) => {
+    player.cardHand = deckOfCards.splice(0, 3);
+    return {
+      playerId: player.playerId,
+      cardHand: player.cardHand,
+    };
+  });
 
   return (
     <div className="Board">
+      <button className="startButton" onClick={startGame}>
+        Start Game
+      </button>
       {deckOfCards.length > 0 && <DeckOfCards deckOfCards={deckOfCards} />}
       <div className="playerpocket">
         {players.map((player, playerId) => (
@@ -61,8 +77,10 @@ export function Board() {
             deckOfCards={deckOfCards}
             setDeckOfCards={setDeckOfCards}
             setPlayers={setPlayers}
-            currentPlayerId={player.playerId}
-          /> 
+            setNewPlayerHand={setNewPlayerHand}
+            newPlayerHand={newPlayerHand}
+            players={players}
+          />
         ))}
       </div>
     </div>
