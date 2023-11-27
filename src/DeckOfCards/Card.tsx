@@ -13,6 +13,24 @@ interface CardProps {
 
 function Card({ cardValue, cardPattern }: CardProps) {
   let patternImage: string | null | undefined;
+  // let royals: string | null | undefined;
+
+  // switch (royals) {
+  //   case "11":
+  //     royals = "J";
+  //     break;
+  //   case 12:
+  //     royals = "Q";
+  //     break;
+  //   case 13:
+  //     royals = "K";
+  //     break;
+  //   case 14:
+  //     royals = "A";
+  //     break;
+  //   default:
+  //     royals = null;
+  // }
 
   switch (cardPattern) {
     case "spades":
@@ -48,16 +66,29 @@ function Card({ cardValue, cardPattern }: CardProps) {
 
   return (
     <div className="Card">
-      <p>{cardValue}</p>
+      <div className="top">
+        <p>{cardValue < 11 && cardValue}</p>
+        {cardValue === 11 && <p>J</p>}
+        {cardValue === 12 && <p>Q</p>}
+        {cardValue === 13 && <p>K</p>}
+        {cardValue === 14 && <p>A</p>}
+      </div>
+
       {patternImage && (
         <img className="pattern" src={patternImage} alt={cardPattern} />
       )}
-
       {cardValue > 2 && cardValue < 11 && renderImages()}
       {cardValue === 11 && renderImages() && <p>Jack</p>}
       {cardValue === 12 && renderImages() && <p>Queen</p>}
       {cardValue === 13 && renderImages() && <p>King</p>}
       {cardValue === 14 && renderImages() && <p>A</p>}
+      <div className="bottom">
+        <p>{cardValue < 11 && cardValue}</p>
+        {cardValue === 11 && <p>J</p>}
+        {cardValue === 12 && <p>Q</p>}
+        {cardValue === 13 && <p>K</p>}
+        {cardValue === 14 && <p>A</p>}
+      </div>
     </div>
   );
 }
