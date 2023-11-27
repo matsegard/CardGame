@@ -13,24 +13,6 @@ interface CardProps {
 
 function Card({ cardValue, cardPattern }: CardProps) {
   let patternImage: string | null | undefined;
-  // let royals: string | null | undefined;
-
-  // switch (royals) {
-  //   case "11":
-  //     royals = "J";
-  //     break;
-  //   case 12:
-  //     royals = "Q";
-  //     break;
-  //   case 13:
-  //     royals = "K";
-  //     break;
-  //   case 14:
-  //     royals = "A";
-  //     break;
-  //   default:
-  //     royals = null;
-  // }
 
   switch (cardPattern) {
     case "spades":
@@ -51,7 +33,7 @@ function Card({ cardValue, cardPattern }: CardProps) {
 
   const renderImages = () => {
     const images = [];
-    for (let i = 0; i < cardValue; i++) {
+    for (let i = 1; i < cardValue; i++) {
       images.push(
         <img
           key={i}
@@ -74,10 +56,13 @@ function Card({ cardValue, cardPattern }: CardProps) {
         {cardValue === 14 && <p>A</p>}
       </div>
 
-      {patternImage && (
-        <img className="pattern" src={patternImage} alt={cardPattern} />
-      )}
-      {cardValue > 2 && cardValue < 11 && renderImages()}
+      <div className="mid">
+        {patternImage && (
+          <img className="pattern" src={patternImage} alt={cardPattern} />
+        )}
+        {cardValue >= 2 && cardValue < 11 && renderImages()}
+      </div>
+
       {cardValue === 11 && renderImages() && <p>Jack</p>}
       {cardValue === 12 && renderImages() && <p>Queen</p>}
       {cardValue === 13 && renderImages() && <p>King</p>}

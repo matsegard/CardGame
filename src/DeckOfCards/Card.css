@@ -6,20 +6,34 @@
   font-size: large;
   margin: 1em;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .pattern {
-  width: 2em;
+  width: 1.5em;
   align-self: center;
 }
 
 .top {
   justify-content: start;
   display: flex;
+  width: 9em;
 }
 
 .bottom {
   justify-content: end;
   display: flex;
   margin: 0;
+  width: 9em;
+}
+
+.mid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 9em;
+  height: 3em;
 }
